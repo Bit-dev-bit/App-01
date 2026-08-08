@@ -21,8 +21,8 @@ function App() {
       description:
         "A responsive music streaming application with custom audio controls, playlists, seek bar and dynamic song handling.",
       tech: ["HTML", "CSS", "JavaScript"],
-      live: "#",
-      github: "#",
+      live: "https://example.com",
+      github: "https://github.com/Bit-dev-bit",
     },
     {
       number: "02",
@@ -30,8 +30,8 @@ function App() {
       description:
         "A modern social platform with authentication, posts, profiles, interactions and a scalable backend architecture.",
       tech: ["React", "Node.js", "MongoDB"],
-      live: "#",
-      github: "#",
+      live: "https://example.com",
+      github: "https://github.com/Bit-dev-bit",
     },
     {
       number: "03",
@@ -39,23 +39,24 @@ function App() {
       description:
         "A platform for students to discover notes, resources, solved questions and useful academic content.",
       tech: ["React", "Express", "MongoDB"],
-      live: "#",
-      github: "#",
+      live: "https://example.com",
+      github: "https://github.com/Bit-dev-bit",
     },
   ];
 
   return (
     <div className="portfolio">
 
-      {/* Animated background */}
+      {/* Background */}
       <div className="background">
         <div className="orb orb-one"></div>
         <div className="orb orb-two"></div>
         <div className="grid"></div>
       </div>
 
-      {/* NAVBAR */}
+      {/* Navbar */}
       <header className="navbar">
+
         <a href="#home" className="logo">
           <span>&lt;</span>DEV<span>/&gt;</span>
         </a>
@@ -71,12 +72,14 @@ function App() {
         <a href="#contact" className="nav-button">
           Let's Talk <span>↗</span>
         </a>
+
       </header>
 
-      {/* HERO */}
-      <main id="home">
+      <main>
 
-        <section className="hero">
+        {/* ================= HERO ================= */}
+
+        <section id="home" className="hero">
 
           <div className="hero-content">
 
@@ -106,28 +109,47 @@ function App() {
 
             <div className="hero-buttons">
 
-              <a href="#projects" className="primary-button">
+              <a
+                href="#projects"
+                className="primary-button"
+              >
                 Explore My Work
                 <span>↗</span>
               </a>
 
-              <a href="#contact" className="outline-button">
+              <a
+                href="#contact"
+                className="outline-button"
+              >
                 Contact Me
               </a>
 
             </div>
 
+            {/* Social Links */}
             <div className="socials">
 
-              <a href="#" aria-label="GitHub">
+              <a
+                href="https://github.com/Bit-dev-bit"
+                target="_blank"
+                rel="noreferrer"
+              >
                 GitHub ↗
               </a>
 
-              <a href="#" aria-label="LinkedIn">
+              <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
                 LinkedIn ↗
               </a>
 
-              <a href="#" aria-label="Twitter">
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Twitter ↗
               </a>
 
@@ -135,12 +157,15 @@ function App() {
 
           </div>
 
-          {/* Developer visual */}
+
+          {/* Developer Visual */}
+
           <div className="hero-visual">
 
             <div className="code-window">
 
               <div className="window-top">
+
                 <div className="window-buttons">
                   <span></span>
                   <span></span>
@@ -148,6 +173,7 @@ function App() {
                 </div>
 
                 <p>developer.js</p>
+
               </div>
 
               <div className="code">
@@ -193,7 +219,9 @@ function App() {
                   </span>
                 </p>
 
-                <p className="indent">],</p>
+                <p className="indent">
+                  ],
+                </p>
 
                 <p className="indent">
                   <span className="red">coffee</span>:{" "}
@@ -205,8 +233,14 @@ function App() {
                 </p>
 
                 <p className="cursor-line">
-                  <span className="purple">developer</span>.
-                  <span className="blue">build</span>();
+                  <span className="purple">
+                    developer
+                  </span>
+                  .
+                  <span className="blue">
+                    build
+                  </span>
+                  ();
                   <span className="cursor"></span>
                 </p>
 
@@ -214,20 +248,30 @@ function App() {
 
             </div>
 
+
+            {/* Floating Cards */}
+
             <div className="floating-card card-one">
+
               <span>⚡</span>
+
               <div>
                 <strong>Fast</strong>
                 <small>Performance</small>
               </div>
+
             </div>
 
+
             <div className="floating-card card-two">
+
               <span>◈</span>
+
               <div>
                 <strong>Modern</strong>
                 <small>Technology</small>
               </div>
+
             </div>
 
           </div>
@@ -235,33 +279,50 @@ function App() {
         </section>
 
 
-        {/* MARQUEE */}
+        {/* ================= MARQUEE ================= */}
+
         <div className="marquee">
+
           <div className="marquee-content">
+
             <span>FULL STACK DEVELOPMENT</span>
             <b>✦</b>
+
             <span>REACT</span>
             <b>✦</b>
+
             <span>NODE.JS</span>
             <b>✦</b>
+
             <span>MODERN WEB</span>
             <b>✦</b>
+
             <span>FULL STACK DEVELOPMENT</span>
             <b>✦</b>
+
           </div>
+
         </div>
 
 
-        {/* ABOUT */}
-        <section id="about" className="section about-section">
+        {/* ================= ABOUT ================= */}
+
+        <section
+          id="about"
+          className="section about-section"
+        >
 
           <div className="section-heading">
+
             <p>01 — ABOUT ME</p>
+
             <h2>
               Building things that
               <span> matter.</span>
             </h2>
+
           </div>
+
 
           <div className="about-grid">
 
@@ -284,11 +345,15 @@ function App() {
                 better software.
               </p>
 
-              <a href="#contact" className="text-link">
+              <a
+                href="#contact"
+                className="text-link"
+              >
                 More about me <span>→</span>
               </a>
 
             </div>
+
 
             <div className="stats">
 
@@ -319,30 +384,45 @@ function App() {
         </section>
 
 
-        {/* SKILLS */}
-        <section id="skills" className="section">
+        {/* ================= SKILLS ================= */}
+
+        <section
+          id="skills"
+          className="section"
+        >
 
           <div className="section-heading">
+
             <p>02 — SKILLS</p>
+
             <h2>
               My <span>toolbox.</span>
             </h2>
+
           </div>
+
 
           <div className="skills-grid">
 
             {skills.map((skill, index) => (
-              <div className="skill" key={skill}>
+
+              <div
+                className="skill"
+                key={skill}
+              >
 
                 <span className="skill-number">
-                  0{index + 1}
+                  {String(index + 1).padStart(2, "0")}
                 </span>
 
                 <h3>{skill}</h3>
 
-                <span className="skill-arrow">↗</span>
+                <span className="skill-arrow">
+                  ↗
+                </span>
 
               </div>
+
             ))}
 
           </div>
@@ -350,17 +430,23 @@ function App() {
         </section>
 
 
-        {/* PROJECTS */}
-        <section id="projects" className="section">
+        {/* ================= PROJECTS ================= */}
+
+        <section
+          id="projects"
+          className="section"
+        >
 
           <div className="section-heading projects-heading">
 
             <div>
+
               <p>03 — SELECTED WORK</p>
 
               <h2>
                 Things I've <span>built.</span>
               </h2>
+
             </div>
 
             <p className="heading-description">
@@ -384,33 +470,48 @@ function App() {
                   {project.number}
                 </div>
 
+
                 <div className="project-info">
 
-                  <h3>{project.title}</h3>
+                  <h3>
+                    {project.title}
+                  </h3>
 
                   <p>
                     {project.description}
                   </p>
 
+
                   <div className="project-tech">
 
                     {project.tech.map((tech) => (
+
                       <span key={tech}>
                         {tech}
                       </span>
+
                     ))}
 
                   </div>
 
                 </div>
 
+
                 <div className="project-actions">
 
-                  <a href={project.live}>
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     Live ↗
                   </a>
 
-                  <a href={project.github}>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     GitHub ↗
                   </a>
 
@@ -425,7 +526,8 @@ function App() {
         </section>
 
 
-        {/* EXPERIENCE */}
+        {/* ================= JOURNEY ================= */}
+
         <section className="section experience">
 
           <div className="section-heading">
@@ -438,6 +540,7 @@ function App() {
 
           </div>
 
+
           <div className="timeline">
 
             <div className="timeline-item">
@@ -449,15 +552,20 @@ function App() {
               <div className="timeline-dot"></div>
 
               <div>
-                <h3>Full Stack Development</h3>
+
+                <h3>
+                  Full Stack Development
+                </h3>
 
                 <p>
                   Building real-world applications using
                   React, Node.js, Express and MongoDB.
                 </p>
+
               </div>
 
             </div>
+
 
             <div className="timeline-item">
 
@@ -468,12 +576,16 @@ function App() {
               <div className="timeline-dot"></div>
 
               <div>
-                <h3>Started Web Development</h3>
+
+                <h3>
+                  Started Web Development
+                </h3>
 
                 <p>
                   Learned HTML, CSS and JavaScript and started
                   building interactive websites.
                 </p>
+
               </div>
 
             </div>
@@ -483,8 +595,12 @@ function App() {
         </section>
 
 
-        {/* CONTACT */}
-        <section id="contact" className="contact-section">
+        {/* ================= CONTACT ================= */}
+
+        <section
+          id="contact"
+          className="contact-section"
+        >
 
           <p className="contact-label">
             05 — HAVE A PROJECT?
@@ -513,17 +629,23 @@ function App() {
       </main>
 
 
-      {/* FOOTER */}
+      {/* ================= FOOTER ================= */}
+
       <footer>
 
         <div>
-          <a href="#home" className="footer-logo">
+
+          <a
+            href="#home"
+            className="footer-logo"
+          >
             &lt;DEV/&gt;
           </a>
 
           <p>
             Designed & built with React.
           </p>
+
         </div>
 
         <p>

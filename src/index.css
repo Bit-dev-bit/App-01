@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700;800&display=swap");
 
 
 /* =========================
@@ -50,12 +50,12 @@ a {
 
   background-image:
     linear-gradient(
-      rgba(255,255,255,0.025) 1px,
+      rgba(255, 255, 255, 0.025) 1px,
       transparent 1px
     ),
     linear-gradient(
       90deg,
-      rgba(255,255,255,0.025) 1px,
+      rgba(255, 255, 255, 0.025) 1px,
       transparent 1px
     );
 
@@ -70,8 +70,11 @@ a {
 
 .orb {
   position: absolute;
+
   border-radius: 50%;
+
   filter: blur(100px);
+
   opacity: 0.15;
 }
 
@@ -104,6 +107,7 @@ a {
   height: 80px;
 
   position: fixed;
+
   top: 0;
   left: 0;
   right: 0;
@@ -111,20 +115,24 @@ a {
   z-index: 100;
 
   display: flex;
+
   align-items: center;
   justify-content: space-between;
 
   padding: 0 7%;
 
   background: rgba(8, 8, 8, 0.7);
+
   backdrop-filter: blur(20px);
 
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .logo {
   font-family: "DM Mono", monospace;
+
   font-size: 20px;
+
   font-weight: 500;
 }
 
@@ -134,11 +142,13 @@ a {
 
 .navbar nav {
   display: flex;
+
   gap: 35px;
 }
 
 .navbar nav a {
   color: #888;
+
   font-size: 13px;
 
   transition: 0.3s;
@@ -162,6 +172,7 @@ a {
 
 .nav-button:hover {
   border-color: #00ff88;
+
   color: #00ff88;
 }
 
@@ -180,6 +191,7 @@ a {
   padding: 160px 8% 100px;
 
   display: grid;
+
   grid-template-columns: 1.1fr 0.9fr;
 
   align-items: center;
@@ -193,12 +205,15 @@ a {
 
 .availability {
   display: inline-flex;
+
   align-items: center;
+
   gap: 9px;
 
   padding: 8px 12px;
 
   border: 1px solid #222;
+
   border-radius: 30px;
 
   color: #888;
@@ -299,7 +314,8 @@ a {
 .primary-button:hover {
   transform: translateY(-3px);
 
-  box-shadow: 0 15px 40px rgba(0,255,136,0.2);
+  box-shadow:
+    0 15px 40px rgba(0, 255, 136, 0.2);
 }
 
 .primary-button span {
@@ -361,10 +377,12 @@ a {
   overflow: hidden;
 
   box-shadow:
-    0 30px 100px rgba(0,0,0,0.5),
-    0 0 80px rgba(0,255,136,0.04);
+    0 30px 100px rgba(0, 0, 0, 0.5),
+    0 0 80px rgba(0, 255, 136, 0.04);
 
-  transform: perspective(1000px) rotateY(-4deg);
+  transform:
+    perspective(1000px)
+    rotateY(-4deg);
 
   transition: 0.5s;
 }
@@ -482,7 +500,7 @@ a {
 
   padding: 12px 15px;
 
-  background: rgba(15,15,15,0.9);
+  background: rgba(15, 15, 15, 0.9);
 
   backdrop-filter: blur(10px);
 
@@ -490,7 +508,8 @@ a {
 
   border-radius: 7px;
 
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.4);
 }
 
 .floating-card > span {
@@ -538,13 +557,14 @@ a {
   width: 100%;
 
   border-top: 1px solid #222;
+
   border-bottom: 1px solid #222;
 
   overflow: hidden;
 
   padding: 18px 0;
 
-  background: rgba(255,255,255,0.015);
+  background: rgba(255, 255, 255, 0.015);
 }
 
 .marquee-content {
@@ -556,7 +576,8 @@ a {
 
   width: max-content;
 
-  animation: marquee 25s linear infinite;
+  animation:
+    marquee 25s linear infinite;
 
   font-family: "DM Mono", monospace;
 
@@ -673,6 +694,7 @@ a {
   padding: 30px;
 
   border-right: 1px solid #222;
+
   border-bottom: 1px solid #222;
 }
 
@@ -717,6 +739,7 @@ a {
   padding: 20px;
 
   border-right: 1px solid #222;
+
   border-bottom: 1px solid #222;
 
   display: flex;
@@ -812,7 +835,7 @@ a {
 .project:hover {
   padding-left: 20px;
 
-  background: rgba(0,255,136,0.015);
+  background: rgba(0, 255, 136, 0.015);
 }
 
 .project-number {
@@ -1017,7 +1040,8 @@ a {
 .contact-button:hover {
   transform: translateY(-4px);
 
-  box-shadow: 0 15px 40px rgba(0,255,136,0.2);
+  box-shadow:
+    0 15px 40px rgba(0, 255, 136, 0.2);
 }
 
 
