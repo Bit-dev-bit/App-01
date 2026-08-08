@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import "./index.css";
+import "./App.css";
 
 const projects = [
   {
@@ -141,17 +141,35 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+
+  // FIXED:
+  // Only projectFilter is needed here.
+  // skillFilter belongs inside About().
   const [projectFilter, setProjectFilter] = useState("All");
-  const [skillFilter, setSkillFilter] = useState("All");
-  const [cursor, setCursor] = useState({ x: 0, y: 0 });
+
+  const [cursor, setCursor] = useState({
+    x: 0,
+    y: 0,
+  });
+
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  /* =========================
+     HASH NAVIGATION
+  ========================= */
 
   useEffect(() => {
     const onHashChange = () => {
-      const newRoute = window.location.hash.replace("#", "") || "/";
+      const newRoute =
+        window.location.hash.replace("#", "") || "/";
+
       setRoute(newRoute);
       setMenuOpen(false);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     };
 
     window.addEventListener("hashchange", onHashChange);
@@ -160,6 +178,10 @@ function App() {
       window.removeEventListener("hashchange", onHashChange);
     };
   }, []);
+
+  /* =========================
+     MOUSE CURSOR
+  ========================= */
 
   useEffect(() => {
     const onMouseMove = (event) => {
@@ -176,14 +198,22 @@ function App() {
     };
   }, []);
 
+  /* =========================
+     SCROLL PROGRESS
+  ========================= */
+
   useEffect(() => {
     const onScroll = () => {
       const scrollTop = window.scrollY;
+
       const height =
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
 
-      const progress = height > 0 ? (scrollTop / height) * 100 : 0;
+      const progress =
+        height > 0
+          ? (scrollTop / height) * 100
+          : 0;
 
       setScrollProgress(progress);
     };
@@ -195,10 +225,18 @@ function App() {
     };
   }, []);
 
+  /* =========================
+     KEYBOARD SHORTCUTS
+  ========================= */
+
   useEffect(() => {
     const onKeyDown = (event) => {
-      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+      if (
+        (event.ctrlKey || event.metaKey) &&
+        event.key.toLowerCase() === "k"
+      ) {
         event.preventDefault();
+
         setCommandOpen((value) => !value);
       }
 
@@ -215,6 +253,10 @@ function App() {
     };
   }, []);
 
+  /* =========================
+     PAGE TITLE
+  ========================= */
+
   useEffect(() => {
     const titles = {
       "/": "Your Name — Full Stack Developer",
@@ -226,37 +268,47 @@ function App() {
       "/contact": "Contact — Your Name",
     };
 
-    document.title = titles[route] || "Your Name — Developer";
+    document.title =
+      titles[route] || "Your Name — Developer";
   }, [route]);
+
+  /* =========================
+     NAVIGATION
+  ========================= */
 
   const navigate = (path) => {
     window.location.hash = path;
   };
 
+  /* =========================
+     PROJECT FILTER
+  ========================= */
+
   const filteredProjects = useMemo(() => {
-    if (projectFilter === "All") return projects;
+    if (projectFilter === "All") {
+      return projects;
+    }
 
     return projects.filter(
-      (project) => project.category === projectFilter
+      (project) =>
+        project.category === projectFilter
     );
   }, [projectFilter]);
-
-  const filteredSkills = useMemo(() => {
-    if (skillFilter === "All") return skills;
-
-    return skills.filter((skill) => skill.type === skillFilter);
-  }, [skillFilter]);
 
   return (
     <div className={dark ? "app dark" : "app light"}>
 
-      {/* Scroll progress */}
+      {/* Scroll Progress */}
+
       <div
         className="scroll-progress"
-        style={{ width: `${scrollProgress}%` }}
+        style={{
+          width: `${scrollProgress}%`,
+        }}
       />
 
-      {/* Cursor */}
+      {/* Mouse Glow */}
+
       <div
         className="cursor-glow"
         style={{
@@ -266,9 +318,11 @@ function App() {
       />
 
       {/* Background */}
+
       <Background />
 
-      {/* Navigation */}
+      {/* Navbar */}
+
       <Navbar
         route={route}
         dark={dark}
@@ -280,7 +334,9 @@ function App() {
       />
 
       {/* Main */}
+
       <main>
+
         {route === "/" && (
           <Home
             navigate={navigate}
@@ -315,13 +371,18 @@ function App() {
           "/journal",
           "/resume",
           "/contact",
-        ].includes(route) && <NotFound navigate={navigate} />}
+        ].includes(route) && (
+          <NotFound navigate={navigate} />
+        )}
+
       </main>
 
       {/* Footer */}
+
       <Footer navigate={navigate} />
 
       {/* Project Modal */}
+
       {selectedProject && (
         <ProjectModal
           project={selectedProject}
@@ -330,12 +391,14 @@ function App() {
       )}
 
       {/* Command Palette */}
+
       {commandOpen && (
         <CommandPalette
           close={() => setCommandOpen(false)}
           navigate={navigate}
         />
       )}
+
     </div>
   );
 }
@@ -354,12 +417,15 @@ function Background() {
       <div className="noise"></div>
 
       <div className="gradient-orb orb-a"></div>
+
       <div className="gradient-orb orb-b"></div>
+
       <div className="gradient-orb orb-c"></div>
 
       <div className="grid-background"></div>
 
       <div className="stars">
+
         {dots.map((_, index) => (
           <span
             key={index}
@@ -370,7 +436,9 @@ function Background() {
             }}
           />
         ))}
+
       </div>
+
     </div>
   );
 }
@@ -405,21 +473,42 @@ function Navbar({
         onClick={() => navigate("/")}
         aria-label="Go home"
       >
-        <span className="brand-symbol">✦</span>
-        <span>YOUR<span>NAME</span></span>
+        <span className="brand-symbol">
+          ✦
+        </span>
+
+        <span>
+          YOUR<span>NAME</span>
+        </span>
       </button>
 
-      <nav className={menuOpen ? "nav-links mobile-open" : "nav-links"}>
+
+      <nav
+        className={
+          menuOpen
+            ? "nav-links mobile-open"
+            : "nav-links"
+        }
+      >
+
         {links.map(([path, name]) => (
+
           <button
             key={path}
-            className={route === path ? "active" : ""}
+            className={
+              route === path
+                ? "active"
+                : ""
+            }
             onClick={() => navigate(path)}
           >
             {name}
           </button>
+
         ))}
+
       </nav>
+
 
       <div className="nav-actions">
 
@@ -431,6 +520,7 @@ function Navbar({
           <span>K</span>
         </button>
 
+
         <button
           className="theme-button"
           onClick={() => setDark(!dark)}
@@ -439,6 +529,7 @@ function Navbar({
           {dark ? "☼" : "☾"}
         </button>
 
+
         <button
           className="nav-contact"
           onClick={() => navigate("/contact")}
@@ -446,6 +537,7 @@ function Navbar({
           Let's Talk
           <span>↗</span>
         </button>
+
 
         <button
           className="menu-button"
@@ -456,6 +548,7 @@ function Navbar({
         </button>
 
       </div>
+
     </header>
   );
 }
@@ -465,29 +558,46 @@ function Navbar({
    HOME
 ========================================================= */
 
-function Home({ navigate, setSelectedProject }) {
+function Home({
+  navigate,
+  setSelectedProject,
+}) {
   return (
     <>
+
       <section className="hero page-container">
 
         <div className="hero-copy">
 
           <div className="eyebrow">
+
             <span className="live-dot"></span>
+
             AVAILABLE FOR SELECTED OPPORTUNITIES
+
           </div>
 
+
           <h1>
+
             I build
+
             <br />
-            <span className="gradient-text">digital worlds.</span>
+
+            <span className="gradient-text">
+              digital worlds.
+            </span>
+
           </h1>
 
+
           <p className="hero-description">
-            Full Stack Developer focused on creating exceptional
-            digital products, immersive interfaces and software
-            that people actually enjoy using.
+            Full Stack Developer focused on creating
+            exceptional digital products, immersive
+            interfaces and software that people
+            actually enjoy using.
           </p>
+
 
           <div className="hero-actions">
 
@@ -499,6 +609,7 @@ function Home({ navigate, setSelectedProject }) {
               <span>↗</span>
             </button>
 
+
             <button
               className="magnetic secondary"
               onClick={() => navigate("/contact")}
@@ -507,6 +618,7 @@ function Home({ navigate, setSelectedProject }) {
             </button>
 
           </div>
+
 
           <div className="hero-meta">
 
@@ -517,12 +629,16 @@ function Home({ navigate, setSelectedProject }) {
 
             <div>
               <span>FOCUS</span>
-              <strong>WEB · SOFTWARE · AI</strong>
+              <strong>
+                WEB · SOFTWARE · AI
+              </strong>
             </div>
 
             <div>
               <span>STATUS</span>
-              <strong className="green-text">BUILDING</strong>
+              <strong className="green-text">
+                BUILDING
+              </strong>
             </div>
 
           </div>
@@ -534,30 +650,52 @@ function Home({ navigate, setSelectedProject }) {
 
           <div className="machine-glow"></div>
 
+
           <div className="terminal">
 
             <div className="terminal-header">
 
               <div className="terminal-dots">
+
                 <span></span>
                 <span></span>
                 <span></span>
+
               </div>
 
-              <span>~/developer</span>
+              <span>
+                ~/developer
+              </span>
 
-              <span>● ONLINE</span>
+              <span>
+                ● ONLINE
+              </span>
 
             </div>
+
 
             <div className="terminal-body">
 
               <div>
-                <span className="terminal-green">user</span>
-                <span className="terminal-gray">@</span>
-                <span className="terminal-blue">portfolio</span>
-                <span className="terminal-gray">:~$</span>
+
+                <span className="terminal-green">
+                  user
+                </span>
+
+                <span className="terminal-gray">
+                  @
+                </span>
+
+                <span className="terminal-blue">
+                  portfolio
+                </span>
+
+                <span className="terminal-gray">
+                  :~$
+                </span>
+
               </div>
+
 
               <p className="command-line">
                 whoami
@@ -567,21 +705,31 @@ function Home({ navigate, setSelectedProject }) {
                 Full Stack Developer
               </p>
 
+
               <p className="command-line">
                 cat ./mission.txt
               </p>
 
+
               <p className="terminal-output">
+
                 Build useful things.
                 <br />
+
                 Make them beautiful.
                 <br />
+
                 Never stop learning.
+
               </p>
 
+
               <p className="command-line">
+
                 ./build-future.sh
+
                 <span className="terminal-cursor"></span>
+
               </p>
 
             </div>
@@ -590,25 +738,52 @@ function Home({ navigate, setSelectedProject }) {
 
 
           <div className="machine-card machine-card-one">
-            <span className="machine-icon">⌁</span>
+
+            <span className="machine-icon">
+              ⌁
+            </span>
+
             <div>
-              <strong>10+</strong>
-              <small>Technologies</small>
+
+              <strong>
+                10+
+              </strong>
+
+              <small>
+                Technologies
+              </small>
+
             </div>
+
           </div>
 
+
           <div className="machine-card machine-card-two">
-            <span className="machine-icon">✦</span>
+
+            <span className="machine-icon">
+              ✦
+            </span>
+
             <div>
-              <strong>∞</strong>
-              <small>Things to build</small>
+
+              <strong>
+                ∞
+              </strong>
+
+              <small>
+                Things to build
+              </small>
+
             </div>
+
           </div>
 
         </div>
 
       </section>
 
+
+      {/* TICKER */}
 
       <section className="ticker">
 
@@ -646,6 +821,8 @@ function Home({ navigate, setSelectedProject }) {
       </section>
 
 
+      {/* FEATURED WORK */}
+
       <section className="home-section page-container">
 
         <SectionHeading
@@ -655,48 +832,76 @@ function Home({ navigate, setSelectedProject }) {
           highlight="made real."
         />
 
+
         <div className="featured-projects">
 
-          {projects.slice(0, 3).map((project, index) => (
-            <button
-              className={`featured-project ${project.accent}`}
-              key={project.id}
-              onClick={() => setSelectedProject(project)}
-            >
+          {projects
+            .slice(0, 3)
+            .map((project, index) => (
 
-              <div className="project-visual">
+              <button
+                className={`featured-project ${project.accent}`}
+                key={project.id}
+                onClick={() =>
+                  setSelectedProject(project)
+                }
+              >
 
-                <div className="visual-number">
-                  0{index + 1}
+                <div className="project-visual">
+
+                  <div className="visual-number">
+                    0{index + 1}
+                  </div>
+
+
+                  <div className="visual-shape">
+
+                    <span>
+                      {project.title.charAt(0)}
+                    </span>
+
+                  </div>
+
+
+                  <span className="visual-arrow">
+                    ↗
+                  </span>
+
                 </div>
 
-                <div className="visual-shape">
-                  <span>{project.title.charAt(0)}</span>
+
+                <div className="featured-info">
+
+                  <div>
+
+                    <small>
+                      {project.category}
+                    </small>
+
+                    <small>
+                      {project.year}
+                    </small>
+
+                  </div>
+
+
+                  <h3>
+                    {project.title}
+                  </h3>
+
+
+                  <p>
+                    {project.description}
+                  </p>
+
                 </div>
 
-                <span className="visual-arrow">
-                  ↗
-                </span>
+              </button>
 
-              </div>
-
-              <div className="featured-info">
-
-                <div>
-                  <small>{project.category}</small>
-                  <small>{project.year}</small>
-                </div>
-
-                <h3>{project.title}</h3>
-
-                <p>{project.description}</p>
-
-              </div>
-
-            </button>
-          ))}
+            ))}
 
         </div>
+
 
         <button
           className="view-all"
@@ -709,16 +914,27 @@ function Home({ navigate, setSelectedProject }) {
       </section>
 
 
+      {/* STATEMENT */}
+
       <section className="statement-section">
 
         <div className="statement">
 
-          <span>MY PHILOSOPHY</span>
+          <span>
+            MY PHILOSOPHY
+          </span>
+
 
           <h2>
+
             Good software should feel
-            <em> inevitable.</em>
+
+            <em>
+              inevitable.
+            </em>
+
           </h2>
+
 
           <p>
             Simple on the surface. Powerful underneath.
@@ -730,6 +946,8 @@ function Home({ navigate, setSelectedProject }) {
       </section>
 
 
+      {/* STACK */}
+
       <section className="home-section page-container">
 
         <SectionHeading
@@ -738,6 +956,7 @@ function Home({ navigate, setSelectedProject }) {
           title="My"
           highlight="toolbox."
         />
+
 
         <div className="mini-stack">
 
@@ -749,14 +968,30 @@ function Home({ navigate, setSelectedProject }) {
             "MongoDB",
             "CSS",
           ].map((item, index) => (
-            <div key={item} className="mini-stack-item">
-              <span>0{index + 1}</span>
-              <strong>{item}</strong>
-              <i>↗</i>
+
+            <div
+              key={item}
+              className="mini-stack-item"
+            >
+
+              <span>
+                0{index + 1}
+              </span>
+
+              <strong>
+                {item}
+              </strong>
+
+              <i>
+                ↗
+              </i>
+
             </div>
+
           ))}
 
         </div>
+
 
         <button
           className="view-all"
@@ -769,19 +1004,31 @@ function Home({ navigate, setSelectedProject }) {
       </section>
 
 
+      {/* CTA */}
+
       <section className="cta-section">
 
         <div className="cta-orbit"></div>
+
 
         <span className="eyebrow">
           HAVE AN IDEA?
         </span>
 
+
         <h2>
+
           Let's make
+
           <br />
-          something <span>remarkable.</span>
+
+          something
+          <span>
+            remarkable.
+          </span>
+
         </h2>
+
 
         <button
           className="magnetic primary"
@@ -792,6 +1039,7 @@ function Home({ navigate, setSelectedProject }) {
         </button>
 
       </section>
+
     </>
   );
 }
@@ -807,7 +1055,12 @@ function Work({
   setFilter,
   setSelectedProject,
 }) {
-  const filters = ["All", "Frontend", "Full Stack", "AI"];
+  const filters = [
+    "All",
+    "Frontend",
+    "Full Stack",
+    "AI",
+  ];
 
   return (
     <section className="page-container inner-page">
@@ -819,19 +1072,27 @@ function Work({
         description="A collection of experiments, products and interfaces I've built while learning and exploring the web."
       />
 
+
       <div className="filter-bar">
 
         {filters.map((item) => (
+
           <button
             key={item}
-            className={filter === item ? "filter-active" : ""}
+            className={
+              filter === item
+                ? "filter-active"
+                : ""
+            }
             onClick={() => setFilter(item)}
           >
             {item}
           </button>
+
         ))}
 
       </div>
+
 
       <div className="work-grid">
 
@@ -840,7 +1101,9 @@ function Work({
           <button
             key={project.id}
             className={`work-card ${project.accent}`}
-            onClick={() => setSelectedProject(project)}
+            onClick={() =>
+              setSelectedProject(project)
+            }
           >
 
             <div className="work-card-image">
@@ -849,11 +1112,15 @@ function Work({
                 0{index + 1}
               </span>
 
+
               <div className="abstract-art">
+
                 <div></div>
                 <div></div>
                 <div></div>
+
               </div>
+
 
               <span className="open-icon">
                 ↗
@@ -861,21 +1128,42 @@ function Work({
 
             </div>
 
+
             <div className="work-card-content">
 
               <div className="work-card-meta">
-                <span>{project.category}</span>
-                <span>{project.year}</span>
+
+                <span>
+                  {project.category}
+                </span>
+
+                <span>
+                  {project.year}
+                </span>
+
               </div>
 
-              <h3>{project.title}</h3>
 
-              <p>{project.description}</p>
+              <h3>
+                {project.title}
+              </h3>
+
+
+              <p>
+                {project.description}
+              </p>
+
 
               <div className="tech-row">
+
                 {project.tech.map((tech) => (
-                  <span key={tech}>{tech}</span>
+
+                  <span key={tech}>
+                    {tech}
+                  </span>
+
                 ))}
+
               </div>
 
             </div>
@@ -896,7 +1184,12 @@ function Work({
 ========================================================= */
 
 function About() {
-  const [skillFilter, setSkillFilter] = useState("All");
+
+  // IMPORTANT:
+  // Skill filtering is here, not inside App().
+  const [skillFilter, setSkillFilter] =
+    useState("All");
+
 
   const categories = [
     "All",
@@ -906,9 +1199,14 @@ function About() {
     "Tools",
   ];
 
+
   const filtered = skillFilter === "All"
     ? skills
-    : skills.filter((skill) => skill.type === skillFilter);
+    : skills.filter(
+        (skill) =>
+          skill.type === skillFilter
+      );
+
 
   return (
     <section className="page-container inner-page">
@@ -920,9 +1218,11 @@ function About() {
         description="I'm a developer who enjoys the intersection of technology, design and product thinking."
       />
 
+
       <div className="about-hero-grid">
 
         <div className="about-big-text">
+
           <p>
             I don't just want to write code.
           </p>
@@ -936,27 +1236,31 @@ function About() {
             Then build something people
             <span> love.</span>
           </p>
+
         </div>
+
 
         <div className="about-description">
 
           <p>
-            My journey started with curiosity about how websites
-            actually work. That curiosity turned into programming,
-            design, backend systems and eventually full-stack
-            development.
+            My journey started with curiosity about
+            how websites actually work. That curiosity
+            turned into programming, design, backend
+            systems and eventually full-stack development.
           </p>
 
           <p>
-            Today I'm interested in building ambitious products,
-            experimenting with new technology and continuously
-            improving my craft.
+            Today I'm interested in building ambitious
+            products, experimenting with new technology
+            and continuously improving my craft.
           </p>
 
         </div>
 
       </div>
 
+
+      {/* SKILLS */}
 
       <div className="skills-section">
 
@@ -967,9 +1271,11 @@ function About() {
           highlight="work with."
         />
 
+
         <div className="skill-filters">
 
           {categories.map((category) => (
+
             <button
               key={category}
               className={
@@ -977,32 +1283,50 @@ function About() {
                   ? "filter-active"
                   : ""
               }
-              onClick={() => setSkillFilter(category)}
+              onClick={() =>
+                setSkillFilter(category)
+              }
             >
               {category}
             </button>
+
           ))}
 
         </div>
+
 
         <div className="skills-list">
 
           {filtered.map((skill) => (
 
-            <div className="skill-row" key={skill.name}>
+            <div
+              className="skill-row"
+              key={skill.name}
+            >
 
               <div className="skill-name">
-                <strong>{skill.name}</strong>
-                <span>{skill.type}</span>
+
+                <strong>
+                  {skill.name}
+                </strong>
+
+                <span>
+                  {skill.type}
+                </span>
+
               </div>
 
+
               <div className="skill-bar">
+
                 <span
                   style={{
                     width: `${skill.level}%`,
                   }}
                 ></span>
+
               </div>
+
 
               <span className="skill-percent">
                 {skill.level}%
@@ -1017,6 +1341,8 @@ function About() {
       </div>
 
 
+      {/* JOURNEY */}
+
       <div className="journey-section">
 
         <SectionHeading
@@ -1026,31 +1352,43 @@ function About() {
           highlight="got here."
         />
 
+
         <div className="journey">
 
-          {experience.map((item, index) => (
+          {experience.map(
+            (item, index) => (
 
-            <div className="journey-item" key={item.year + index}>
+              <div
+                className="journey-item"
+                key={item.year + index}
+              >
 
-              <div className="journey-year">
-                {item.year}
+                <div className="journey-year">
+                  {item.year}
+                </div>
+
+
+                <div className="journey-line">
+                  <span></span>
+                </div>
+
+
+                <div className="journey-content">
+
+                  <h3>
+                    {item.title}
+                  </h3>
+
+                  <p>
+                    {item.description}
+                  </p>
+
+                </div>
+
               </div>
 
-              <div className="journey-line">
-                <span></span>
-              </div>
-
-              <div className="journey-content">
-
-                <h3>{item.title}</h3>
-
-                <p>{item.description}</p>
-
-              </div>
-
-            </div>
-
-          ))}
+            )
+          )}
 
         </div>
 
@@ -1066,28 +1404,34 @@ function About() {
 ========================================================= */
 
 function Lab() {
+
   const experiments = [
     {
       title: "Particle Playground",
-      description: "Interactive canvas experiments and generative visuals.",
+      description:
+        "Interactive canvas experiments and generative visuals.",
       symbol: "✦",
     },
     {
       title: "Glass Interface",
-      description: "Exploring depth, blur, light and modern UI systems.",
+      description:
+        "Exploring depth, blur, light and modern UI systems.",
       symbol: "◈",
     },
     {
       title: "AI Workspace",
-      description: "Ideas around interfaces for AI-powered applications.",
+      description:
+        "Ideas around interfaces for AI-powered applications.",
       symbol: "⌁",
     },
     {
       title: "Motion Studies",
-      description: "Micro-interactions, transitions and interface motion.",
+      description:
+        "Micro-interactions, transitions and interface motion.",
       symbol: "∞",
     },
   ];
+
 
   return (
     <section className="page-container inner-page">
@@ -1099,29 +1443,45 @@ function Lab() {
         description="Not everything needs to become a product. Sometimes the best way to learn is to break things, experiment and see what happens."
       />
 
+
       <div className="lab-grid">
 
-        {experiments.map((item, index) => (
+        {experiments.map(
+          (item, index) => (
 
-          <div className="lab-card" key={item.title}>
+            <div
+              className="lab-card"
+              key={item.title}
+            >
 
-            <div className="lab-symbol">
-              {item.symbol}
+              <div className="lab-symbol">
+                {item.symbol}
+              </div>
+
+
+              <span>
+                EXPERIMENT 0{index + 1}
+              </span>
+
+
+              <h3>
+                {item.title}
+              </h3>
+
+
+              <p>
+                {item.description}
+              </p>
+
+
+              <button type="button">
+                Explore experiment →
+              </button>
+
             </div>
 
-            <span>EXPERIMENT 0{index + 1}</span>
-
-            <h3>{item.title}</h3>
-
-            <p>{item.description}</p>
-
-            <button type="button">
-              Explore experiment →
-            </button>
-
-          </div>
-
-        ))}
+          )
+        )}
 
       </div>
 
@@ -1129,29 +1489,45 @@ function Lab() {
       <div className="lab-terminal">
 
         <div className="terminal-header">
-          <span>experiments.log</span>
-          <span>RUNNING</span>
+
+          <span>
+            experiments.log
+          </span>
+
+          <span>
+            RUNNING
+          </span>
+
         </div>
+
 
         <div className="terminal-body">
 
           <p>
-            <span className="terminal-green">[OK]</span>{" "}
+            <span className="terminal-green">
+              [OK]
+            </span>{" "}
             Initializing creative engine...
           </p>
 
           <p>
-            <span className="terminal-green">[OK]</span>{" "}
+            <span className="terminal-green">
+              [OK]
+            </span>{" "}
             Loading experiments...
           </p>
 
           <p>
-            <span className="terminal-green">[OK]</span>{" "}
+            <span className="terminal-green">
+              [OK]
+            </span>{" "}
             Curiosity detected.
           </p>
 
           <p>
-            <span className="terminal-blue">[RUN]</span>{" "}
+            <span className="terminal-blue">
+              [RUN]
+            </span>{" "}
             Building something interesting...
           </p>
 
@@ -1169,23 +1545,28 @@ function Lab() {
 ========================================================= */
 
 function Journal() {
+
   const posts = [
     {
       date: "AUG 2026",
-      title: "What I learned building my first serious portfolio",
+      title:
+        "What I learned building my first serious portfolio",
       category: "BUILDING",
     },
     {
       date: "JUL 2026",
-      title: "Why understanding JavaScript matters",
+      title:
+        "Why understanding JavaScript matters",
       category: "ENGINEERING",
     },
     {
       date: "JUN 2026",
-      title: "From copying tutorials to building products",
+      title:
+        "From copying tutorials to building products",
       category: "LEARNING",
     },
   ];
+
 
   return (
     <section className="page-container inner-page">
@@ -1197,35 +1578,49 @@ function Journal() {
         description="A place for things I've learned, mistakes I've made and ideas I'm currently thinking about."
       />
 
+
       <div className="journal-list">
 
-        {posts.map((post, index) => (
+        {posts.map(
+          (post, index) => (
 
-          <article className="journal-item" key={post.title}>
+            <article
+              className="journal-item"
+              key={post.title}
+            >
 
-            <div className="journal-index">
-              0{index + 1}
-            </div>
+              <div className="journal-index">
+                0{index + 1}
+              </div>
 
-            <div className="journal-date">
-              {post.date}
-            </div>
 
-            <div className="journal-content">
+              <div className="journal-date">
+                {post.date}
+              </div>
 
-              <span>{post.category}</span>
 
-              <h3>{post.title}</h3>
+              <div className="journal-content">
 
-              <button type="button">
-                Read article →
-              </button>
+                <span>
+                  {post.category}
+                </span>
 
-            </div>
 
-          </article>
+                <h3>
+                  {post.title}
+                </h3>
 
-        ))}
+
+                <button type="button">
+                  Read article →
+                </button>
+
+              </div>
+
+            </article>
+
+          )
+        )}
 
       </div>
 
@@ -1239,6 +1634,7 @@ function Journal() {
 ========================================================= */
 
 function Resume() {
+
   return (
     <section className="page-container inner-page resume-page">
 
@@ -1249,6 +1645,7 @@ function Resume() {
         description="A quick overview of my technical background, projects and direction."
       />
 
+
       <div className="resume-layout">
 
         <aside className="resume-sidebar">
@@ -1257,9 +1654,16 @@ function Resume() {
             YN
           </div>
 
-          <h2>Your Name</h2>
 
-          <p>Full Stack Developer</p>
+          <h2>
+            Your Name
+          </h2>
+
+
+          <p>
+            Full Stack Developer
+          </p>
+
 
           <button
             className="primary resume-button"
@@ -1277,12 +1681,16 @@ function Resume() {
 
           <div className="resume-block">
 
-            <span>PROFILE</span>
+            <span>
+              PROFILE
+            </span>
+
 
             <p>
-              Full Stack Developer passionate about building
-              modern web applications, interactive interfaces
-              and useful digital products.
+              Full Stack Developer passionate about
+              building modern web applications,
+              interactive interfaces and useful
+              digital products.
             </p>
 
           </div>
@@ -1290,14 +1698,19 @@ function Resume() {
 
           <div className="resume-block">
 
-            <span>TECHNOLOGIES</span>
+            <span>
+              TECHNOLOGIES
+            </span>
+
 
             <div className="resume-tags">
 
               {skills.map((skill) => (
+
                 <span key={skill.name}>
                   {skill.name}
                 </span>
+
               ))}
 
             </div>
@@ -1307,25 +1720,40 @@ function Resume() {
 
           <div className="resume-block">
 
-            <span>SELECTED EXPERIENCE</span>
+            <span>
+              SELECTED EXPERIENCE
+            </span>
 
-            {experience.map((item, index) => (
 
-              <div
-                className="resume-experience"
-                key={item.year + index}
-              >
+            {experience.map(
+              (item, index) => (
 
-                <strong>{item.year}</strong>
+                <div
+                  className="resume-experience"
+                  key={item.year + index}
+                >
 
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
+                  <strong>
+                    {item.year}
+                  </strong>
+
+
+                  <div>
+
+                    <h3>
+                      {item.title}
+                    </h3>
+
+                    <p>
+                      {item.description}
+                    </p>
+
+                  </div>
+
                 </div>
 
-              </div>
-
-            ))}
+              )
+            )}
 
           </div>
 
@@ -1343,12 +1771,19 @@ function Resume() {
 ========================================================= */
 
 function Contact() {
-  const [sent, setSent] = useState(false);
+
+  const [sent, setSent] =
+    useState(false);
+
 
   const submitForm = (event) => {
+
     event.preventDefault();
+
     setSent(true);
+
   };
+
 
   return (
     <section className="page-container inner-page contact-page">
@@ -1360,17 +1795,25 @@ function Contact() {
         description="Have an idea, opportunity or simply want to talk about technology? Send me a message."
       />
 
+
       <div className="contact-grid">
 
         <div className="contact-info">
 
-          <span>EMAIL</span>
+          <span>
+            EMAIL
+          </span>
+
 
           <a href="mailto:your@email.com">
             your@email.com
           </a>
 
-          <span>SOCIAL</span>
+
+          <span>
+            SOCIAL
+          </span>
+
 
           <a
             href="https://github.com/Bit-dev-bit"
@@ -1379,6 +1822,7 @@ function Contact() {
           >
             GitHub ↗
           </a>
+
 
           <a
             href="https://www.linkedin.com/"
@@ -1397,6 +1841,7 @@ function Contact() {
         >
 
           <label>
+
             YOUR NAME
 
             <input
@@ -1407,7 +1852,9 @@ function Contact() {
 
           </label>
 
+
           <label>
+
             EMAIL
 
             <input
@@ -1418,7 +1865,9 @@ function Contact() {
 
           </label>
 
+
           <label>
+
             MESSAGE
 
             <textarea
@@ -1429,18 +1878,27 @@ function Contact() {
 
           </label>
 
+
           <button
             className="primary"
             type="submit"
           >
-            {sent ? "Message ready ✓" : "Send message ↗"}
+
+            {sent
+              ? "Message ready ✓"
+              : "Send message ↗"}
+
           </button>
 
+
           {sent && (
+
             <p className="form-note">
-              Frontend demo complete. Connect this form to
-              your backend/email service to receive messages.
+              Frontend demo complete. Connect this form
+              to your backend/email service to receive
+              messages.
             </p>
+
           )}
 
         </form>
@@ -1457,19 +1915,30 @@ function Contact() {
 ========================================================= */
 
 function NotFound({ navigate }) {
+
   return (
     <section className="not-found">
 
-      <span>404</span>
+      <span>
+        404
+      </span>
+
 
       <h1>
+
         Lost in
-        <em> cyberspace.</em>
+
+        <em>
+          cyberspace.
+        </em>
+
       </h1>
+
 
       <p>
         The page you're looking for doesn't exist.
       </p>
+
 
       <button
         className="primary"
@@ -1487,14 +1956,23 @@ function NotFound({ navigate }) {
    PROJECT MODAL
 ========================================================= */
 
-function ProjectModal({ project, close }) {
+function ProjectModal({
+  project,
+  close,
+}) {
+
   return (
     <div
       className="modal-backdrop"
       onMouseDown={(event) => {
-        if (event.target === event.currentTarget) {
+
+        if (
+          event.target ===
+          event.currentTarget
+        ) {
           close();
         }
+
       }}
     >
 
@@ -1508,26 +1986,53 @@ function ProjectModal({ project, close }) {
           ×
         </button>
 
-        <div className={`modal-art ${project.accent}`}>
-          <span>{project.title.charAt(0)}</span>
+
+        <div
+          className={`modal-art ${project.accent}`}
+        >
+          <span>
+            {project.title.charAt(0)}
+          </span>
         </div>
+
 
         <div className="modal-content">
 
           <div className="work-card-meta">
-            <span>{project.category}</span>
-            <span>{project.year}</span>
+
+            <span>
+              {project.category}
+            </span>
+
+            <span>
+              {project.year}
+            </span>
+
           </div>
 
-          <h2>{project.title}</h2>
 
-          <p>{project.longDescription}</p>
+          <h2>
+            {project.title}
+          </h2>
+
+
+          <p>
+            {project.longDescription}
+          </p>
+
 
           <div className="tech-row">
+
             {project.tech.map((tech) => (
-              <span key={tech}>{tech}</span>
+
+              <span key={tech}>
+                {tech}
+              </span>
+
             ))}
+
           </div>
+
 
           <div className="modal-actions">
 
@@ -1539,6 +2044,7 @@ function ProjectModal({ project, close }) {
             >
               Live project ↗
             </a>
+
 
             <a
               href={project.github}
@@ -1564,7 +2070,11 @@ function ProjectModal({ project, close }) {
    COMMAND PALETTE
 ========================================================= */
 
-function CommandPalette({ close, navigate }) {
+function CommandPalette({
+  close,
+  navigate,
+}) {
+
   const commands = [
     ["Home", "/"],
     ["Work", "/work"],
@@ -1575,46 +2085,76 @@ function CommandPalette({ close, navigate }) {
     ["Contact", "/contact"],
   ];
 
+
   return (
     <div
       className="command-backdrop"
       onMouseDown={(event) => {
-        if (event.target === event.currentTarget) {
+
+        if (
+          event.target ===
+          event.currentTarget
+        ) {
           close();
         }
+
       }}
     >
 
       <div className="command-palette">
 
         <div className="command-search">
-          <span>⌕</span>
+
+          <span>
+            ⌕
+          </span>
+
+
           <input
             autoFocus
             placeholder="Search pages..."
             aria-label="Search pages"
           />
-          <kbd>ESC</kbd>
+
+
+          <kbd>
+            ESC
+          </kbd>
+
         </div>
+
 
         <div className="command-list">
 
-          {commands.map(([name, path]) => (
+          {commands.map(
+            ([name, path]) => (
 
-            <button
-              key={path}
-              onClick={() => {
-                navigate(path);
-                close();
-              }}
-            >
-              <span>{name}</span>
-              <span>↗</span>
-            </button>
+              <button
+                key={path}
+                onClick={() => {
 
-          ))}
+                  navigate(path);
+
+                  close();
+
+                }}
+              >
+
+                <span>
+                  {name}
+                </span>
+
+                <span>
+                  ↗
+                </span>
+
+              </button>
+
+            )
+          )}
 
         </div>
+
 
         <div className="command-footer">
           Navigate with your keyboard
@@ -1637,16 +2177,29 @@ function SectionHeading({
   title,
   highlight,
 }) {
+
   return (
     <div className="section-heading">
 
       <div className="section-heading-label">
-        <span>{number}</span>
+
+        <span>
+          {number}
+        </span>
+
         {label}
+
       </div>
 
+
       <h2>
-        {title} <span>{highlight}</span>
+
+        {title}{" "}
+
+        <span>
+          {highlight}
+        </span>
+
       </h2>
 
     </div>
@@ -1660,6 +2213,7 @@ function PageIntro({
   highlight,
   description,
 }) {
+
   return (
     <div className="page-intro">
 
@@ -1667,13 +2221,23 @@ function PageIntro({
         {eyebrow}
       </span>
 
+
       <h1>
+
         {title}
+
         <br />
-        <span>{highlight}</span>
+
+        <span>
+          {highlight}
+        </span>
+
       </h1>
 
-      <p>{description}</p>
+
+      <p>
+        {description}
+      </p>
 
     </div>
   );
@@ -1681,6 +2245,7 @@ function PageIntro({
 
 
 function Footer({ navigate }) {
+
   return (
     <footer className="footer">
 
@@ -1693,17 +2258,30 @@ function Footer({ navigate }) {
           ✦ YOURNAME
         </button>
 
+
         <p>
           Designed & built with React.
         </p>
 
       </div>
 
+
       <div className="footer-center">
-        <span>INDIA</span>
-        <span>•</span>
-        <span>2026</span>
+
+        <span>
+          INDIA
+        </span>
+
+        <span>
+          •
+        </span>
+
+        <span>
+          2026
+        </span>
+
       </div>
+
 
       <div className="footer-links">
 
@@ -1715,6 +2293,7 @@ function Footer({ navigate }) {
           GitHub
         </a>
 
+
         <a
           href="https://www.linkedin.com/"
           target="_blank"
@@ -1722,6 +2301,7 @@ function Footer({ navigate }) {
         >
           LinkedIn
         </a>
+
 
         <button
           onClick={() => navigate("/contact")}
